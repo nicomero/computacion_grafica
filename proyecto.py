@@ -42,6 +42,8 @@ edges = (
     )
 
 def checkKeyPressed(event):
+    global currentV
+
     if event.key == pygame.K_ESCAPE:
         pygame.quit()
 
@@ -59,6 +61,9 @@ def checkKeyPressed(event):
         vertices[vNames[currentV]][2]+=1
     elif event.key == pygame.K_z:
         vertices[vNames[currentV]][2]-=1
+
+    elif event.key == pygame.K_TAB:
+        currentV = (currentV+1)%len(vNames)
 
 
 

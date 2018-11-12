@@ -23,6 +23,9 @@ vertices['f'] = [1, 1, 1]
 vertices['g'] = [-1, -1, 1]
 vertices['h'] = [1, -1, 1]
 
+vNames = ['a','b','c','d','e','f','h']
+currentV = 0
+
 edges = (
     ("a","b"),
     ("a","c"),
@@ -37,6 +40,26 @@ edges = (
     ("f","e"),
     ("f","h")
     )
+
+def checkKeyPressed(event):
+    if event.key == pygame.K_ESCAPE:
+        pygame.quit()
+
+    elif event.key == pygame.K_RIGHT:
+        vertices[vNames[currentV]][0]+=1
+    elif event.key == pygame.K_LEFT:
+        vertices[vNames[currentV]][0]-=1
+
+    elif event.key == pygame.K_UP:
+        vertices[vNames[currentV]][1]+=1
+    elif event.key == pygame.K_DOWN:
+        vertices[vNames[currentV]][1]-=1
+
+    elif event.key == pygame.K_x:
+        vertices[vNames[currentV]][2]+=1
+    elif event.key == pygame.K_z:
+        vertices[vNames[currentV]][2]-=1
+
 
 
 def Cube():
@@ -61,9 +84,11 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
+            elif event.type == pygame.KEYDOWN:
+                checkKeyPressed(event);
 
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
-        
+
         Cube()
         pygame.display.flip()
         pygame.time.wait(10)

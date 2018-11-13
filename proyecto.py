@@ -57,9 +57,9 @@ def checkKeyPressed(event):
     elif event.key == pygame.K_DOWN:
         vertices[vNames[currentV]][1]-=1
 
-    elif event.key == pygame.K_x:
-        vertices[vNames[currentV]][2]+=1
     elif event.key == pygame.K_z:
+        vertices[vNames[currentV]][2]+=1
+    elif event.key == pygame.K_a:
         vertices[vNames[currentV]][2]-=1
 
     elif event.key == pygame.K_TAB:

@@ -23,7 +23,7 @@ vertices['f'] = [1, 1, 1]
 vertices['g'] = [-1, -1, 1]
 vertices['h'] = [1, -1, 1]
 
-vNames = ['a','b','c','d','e','f','h']
+vNames = ['a','b','e','f','g','h','d']
 currentV = 0
 
 edges = (
@@ -55,33 +55,45 @@ surfToMap = [
 ]
 
 mode = True
+trans = 1
 
 def checkKeyPressed(event):
-    global currentV, mode
+    global currentV, mode, trans
 
     if event.key == pygame.K_ESCAPE:
         pygame.quit()
 
     elif event.key == pygame.K_RIGHT:
-        vertices[vNames[currentV]][0]+=1
+        vertices[vNames[currentV]][0]+= trans
     elif event.key == pygame.K_LEFT:
-        vertices[vNames[currentV]][0]-=1
+        vertices[vNames[currentV]][0]-= trans
 
     elif event.key == pygame.K_UP:
-        vertices[vNames[currentV]][1]+=1
+        vertices[vNames[currentV]][1]+= trans
     elif event.key == pygame.K_DOWN:
-        vertices[vNames[currentV]][1]-=1
+        vertices[vNames[currentV]][1]-= trans
 
     elif event.key == pygame.K_z:
-        vertices[vNames[currentV]][2]+=1
+        vertices[vNames[currentV]][2]+= trans
     elif event.key == pygame.K_a:
-        vertices[vNames[currentV]][2]-=1
+        vertices[vNames[currentV]][2]-= trans
 
     elif event.key == pygame.K_TAB:
         currentV = (currentV+1)%len(vNames)
 
-    elif event.key == pygame.K_p:
+    elif event.key == pygame.K_m:
         mode = not mode
+
+    elif event.key == pygame.K_MINUS:
+        trans = trans/10
+
+    elif event.key == pygame.K_PLUS:
+        trans = trans*10
+
+    elif event.key == pygame.K_p:
+        print("-----COORDENADAS------------")
+        for vertex in vertices:
+            print(vertex + ":\t" + str(vertices[vertex]))
 
 def loadTexture():
     textureSurface = pygame.image.load('test.png')
@@ -125,7 +137,7 @@ def Cube(lines=True):
 
 def main():
     pygame.init()
-    display = (800,600)
+    display = (1440,900)
     pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
 
     loadTexture()

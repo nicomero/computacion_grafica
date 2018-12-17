@@ -56,6 +56,7 @@ surfToMap = [
 
 mode = True
 trans = 1
+images = ['circle.gif','frog.gif','mario.png']
 
 def checkKeyPressed(event):
     global currentV, mode, trans
@@ -82,6 +83,7 @@ def checkKeyPressed(event):
         currentV = (currentV+1)%len(vNames)
 
     elif event.key == pygame.K_m:
+
         mode = not mode
 
     elif event.key == pygame.K_MINUS:
@@ -95,8 +97,8 @@ def checkKeyPressed(event):
         for vertex in vertices:
             print(vertex + ":\t" + str(vertices[vertex]))
 
-def loadTexture():
-    textureSurface = pygame.image.load('test.png')
+def loadTexture(texture):
+    textureSurface = pygame.image.load(texture)
     textureData = pygame.image.tostring(textureSurface, "RGBA", 1)
     width = textureSurface.get_width()
     height = textureSurface.get_height()
@@ -124,15 +126,17 @@ def Cube(lines=True):
                 glVertex3fv(vertices[vertex])
         glEnd()
     else:
-        glBegin(GL_QUADS)
+        textura = 0
         for surface in surfaces:
-
+            loadTexture(images[textura])
+            glBegin(GL_QUADS)
             index=0
             for vertex in surface:
                 glTexCoord2f(surfToMap[index][0], surfToMap[index][1])
                 glVertex3fv(vertices[vertex])
                 index += 1
-        glEnd()
+            textura += 1
+            glEnd()
 
 
 def main():
@@ -140,7 +144,7 @@ def main():
     display = (1440,900)
     pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
 
-    loadTexture()
+
 
     gluPerspective(45, (display[0]/display[1]), 0.1, 50.0)
 

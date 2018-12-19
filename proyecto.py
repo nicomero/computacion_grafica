@@ -56,7 +56,10 @@ surfToMap = [
 
 mode = True
 trans = 1
-images = ['circle.gif','frog.gif','mario.png']
+images = ['frames/','frames/','frames/']
+limits = [80,80,80]
+contadores = [0,0,0]
+
 
 def checkKeyPressed(event):
     global currentV, mode, trans
@@ -128,13 +131,14 @@ def Cube(lines=True):
     else:
         textura = 0
         for surface in surfaces:
-            loadTexture(images[textura])
+            loadTexture(images[textura] + str(contadores[textura]) + ".gif")
             glBegin(GL_QUADS)
             index=0
             for vertex in surface:
                 glTexCoord2f(surfToMap[index][0], surfToMap[index][1])
                 glVertex3fv(vertices[vertex])
                 index += 1
+            contadores[textura] = (contadores[textura]+1)%limits[textura]
             textura += 1
             glEnd()
 
@@ -159,7 +163,6 @@ def main():
                 checkKeyPressed(event);
 
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
-
         Cube(mode)
         pygame.display.flip()
         pygame.time.wait(10)
